@@ -1,0 +1,35 @@
+{
+  "name": "meechain-magic-hall",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MeeChain Magic Hall - Command Center Dashboard",
+  "main": "src/main.jsx",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.jsx",
+    "start": "node -e \"console.log('Use npm run dev for development or npm run build for production')\""
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "ethers": "^6.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.47.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "terser": "^5.49.0",
+    "vite": "^4.4.9"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
