@@ -1,0 +1,16 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://ritual-chain--pouaun2499.replit.app/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/health"
+  to = "https://ritual-chain--pouaun2499.replit.app/health"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
