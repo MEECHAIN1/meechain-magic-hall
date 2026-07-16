@@ -1,17 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "vite.config.js", "use": "@vercel/node" },
-    { "src": "index.html", "use": "@vercel/static-build" }
+    { "src": "package.json", "use": "@vercel/static-build" }
   ],
   "routes": [
-    {
-      "src": "/api/magic/(.*)",
-      "dest": "https://ritual-chain--pouaun2499.replit.app/api/magic/$1"
-    },
-    {
-      "src": "/health",
-      "dest": "https://ritual-chain--pouaun2499.replit.app/health"
-    }
+    { "src": "/api/(.*)", "dest": "https://ritual-chain--pouaun2499.replit.app/api/$1" },
+    { "src": "/health", "dest": "https://ritual-chain--pouaun2499.replit.app/health" }
   ]
 }
