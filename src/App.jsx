@@ -8,9 +8,11 @@ import QuestHall from './components/halls/QuestHall';
 import CouncilHall from './components/halls/CouncilHall';
 import AcademyHall from './components/halls/AcademyHall';
 import MeeBotGuide from './components/halls/MeeBotGuide';
+import TokenHall from './components/halls/TokenHall';
 import { api, toMetricValue } from './lib/api';
 
 const HALLS = [
+  { id: 'token', label: '💰 Token' },
   { id: 'realm', label: '🏛 Realm' },
   { id: 'network', label: '⚡ Network' },
   { id: 'guardian', label: '🛡 Guardian' },
@@ -24,7 +26,7 @@ const HALLS = [
 const DEFAULT_ADDRESS = '0xMeeBuilderDemo';
 
 export default function App() {
-  const [activeHall, setActiveHall] = useState('realm');
+  const [activeHall, setActiveHall] = useState('token');
   const [magicAddress, setMagicAddress] = useState(localStorage.getItem('magic-hall-address') || DEFAULT_ADDRESS);
   const [orb, setOrb] = useState(null);
   const [health, setHealth] = useState(null);
@@ -43,6 +45,16 @@ export default function App() {
     }
   ]);
   const [meebotBusy, setMeebotBusy] = useState(false);
+  const [wallet, setWallet] = useState({ connected: false, address: '' });
+  const [tokenData, setTokenData] = useState({
+    name: 'MeeChain Token',
+    symbol: 'MEE',
+    totalSupply: '1000000000',
+    balance: '0',
+    rpcLatency: 0,
+    loading: true,
+    error: ''
+  });
 
   useEffect(() => {
     localStorage.setItem('magic-hall-address', magicAddress);
@@ -70,17 +82,19 @@ export default function App() {
       clearInterval(networkTimer);
       clearInterval(addressTimer);
     };
-  }, [magicAddress]);
+  }, [magicAddress, wallet.address]);
 
   async function loadNetwork() {
-    const [healthRes, orbRes, visionRes] = await Promise.all([
+    const [healthRes, orbRes, visionRes, tokenRes] = await Promise.all([
       api.health(),
       api.orb(),
-      api.realmVision()
+      api.realmVision(),
+      api.token(wallet.address)
     ]);
     setHealth(healthRes);
     setOrb(orbRes.data || orbRes);
     setVision(visionRes.data ? { ...visionRes.data, message: visionRes.message } : visionRes);
+    setTokenData(tokenRes.data || tokenRes);
   }
 
   async function loadAddressBound(address) {
@@ -132,6 +146,24 @@ export default function App() {
     } finally {
       setMeebotBusy(false);
     }
+  }
+
+  async function handleConnectWallet() {
+    if (!window.ethereum) {
+      setToasts((current) => [{ id: `wallet-${Date.now()}`, text: '⚠️ Browser wallet not detected' }, ...current].slice(0, 4));
+      return;
+    }
+
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      setWallet({ connected: true, address: accounts[0] });
+    } catch (err) {
+      setToasts((current) => [{ id: `wallet-${Date.now()}`, text: `⚠️ ${err.message}` }, ...current].slice(0, 4));
+    }
+  }
+
+  function handleDisconnectWallet() {
+    setWallet({ connected: false, address: '' });
   }
 
   async function handleMeeBotAdvice() {
@@ -214,10 +246,15 @@ export default function App() {
     guardianState,
     onQuestConfirm: handleQuestConfirm,
     onAskMeeBot: handleMeeBotAdvice,
-    onNavigate: setActiveHall
+    onNavigate: setActiveHall,
+    tokenData,
+    wallet,
+    onConnectWallet: handleConnectWallet,
+    onDisconnectWallet: handleDisconnectWallet
   };
 
   const renderedHall = {
+    token: <TokenHall {...hallProps} />,
     realm: <RealmHall {...hallProps} />,
     network: <NetworkHall {...hallProps} />,
     guardian: <GuardianHall {...hallProps} />,
