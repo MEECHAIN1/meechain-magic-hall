@@ -394,6 +394,18 @@ button { cursor: pointer; }
   .app-shell { padding: 14px; }
 }
 
+.token-hall .metric-card strong { font-size: clamp(20px, 3vw, 26px); overflow-wrap: anywhere; }
+.token-field-grid { display: grid; gap: 12px; }
+.token-field {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(125, 152, 255, .10);
+}
+.token-field span { color: var(--muted); font-size: 12px; }
+.token-field strong { overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; }
 /* Fantasy RPG treatment inspired by the requested MeeChain Magic Hall direction. */
 .topbar, .hero-card, .pulse-card, .hall-section, .sidebar {
   position: relative;
