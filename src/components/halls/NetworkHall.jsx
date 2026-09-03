@@ -8,6 +8,23 @@ function Metric({ label, value, subvalue }) {
   );
 }
 
+function RelicCard({ tone = 'blue', icon, title, subtitle, value, foot }) {
+  return (
+    <div className={`relic-card ${tone}`}>
+      <div className="relic-title">
+        <strong>{title}</strong>
+        <span>{subtitle}</span>
+      </div>
+      <div className="relic-icon">{icon}</div>
+      <div>
+        <strong>{value}</strong>
+        <div className="relic-meter" />
+        <small>{foot}</small>
+      </div>
+    </div>
+  );
+}
+
 export default function NetworkHall({ networkMetrics, orb, vision }) {
   const orbEntries = orb ? Object.values(orb) : [];
   const recentTransactions = vision?.recentTransactions || [];
@@ -17,9 +34,35 @@ export default function NetworkHall({ networkMetrics, orb, vision }) {
       <div className="section-head">
         <div>
           <span className="chip chip-blue">⚡ Network</span>
-          <h2>Monitoring Pulse</h2>
+          <h2>Monitoring Relics</h2>
         </div>
         <div className="mini-status">Live poll · 6s</div>
+      </div>
+
+      <div className="network-relic-grid">
+        <RelicCard
+          icon="🔮"
+          title="Orb of Connectivity"
+          subtitle="RPC Status"
+          value={`${networkMetrics.latency} latency`}
+          foot={`${networkMetrics.rpcHealth} health · all systems watched`}
+        />
+        <RelicCard
+          tone="ember"
+          icon="🗡️"
+          title="Blade of Quests"
+          subtitle="Contract Activity"
+          value={`${recentTransactions.length || 3} pending txns`}
+          foot={`Chain height ${networkMetrics.chainHeight}`}
+        />
+        <RelicCard
+          tone="violet"
+          icon="🪙"
+          title="Sacred Coin of MEE"
+          subtitle="Network TPS"
+          value={`${networkMetrics.tps} tx/s`}
+          foot={`${networkMetrics.gas} gas · ${networkMetrics.bridgeStatus}`}
+        />
       </div>
 
       <div className="metric-grid four-col">

@@ -275,8 +275,8 @@ export default function App() {
         <header className="topbar glass-panel">
           <div>
             <div className="eyebrow">MeeChain Vision → Magic Hall</div>
-            <h1>🪄 Command Center สำหรับ Builders, Guardians และ Players</h1>
-            <p className="subcopy">รักษา mood เดิมของ MeeChain ไว้ — grid, glow, aura และความเป็น ritual-driven dApp</p>
+            <h1>🏰 MeeChain Magic Hall สำหรับ Builders, Guardians และ Players</h1>
+            <p className="subcopy">โทน fantasy RPG dashboard แบบจางลง อ่านง่ายขึ้น แต่ยังมีแสงเวทมนตร์และ frame แบบ quest hall</p>
           </div>
 
           <div className="status-cluster">
@@ -297,14 +297,13 @@ export default function App() {
         <section className="hero-grid">
           <div className="glass-panel hero-card">
             <div className="hero-copy">
-              <span className="chip">Live Magic Layer</span>
-              <h2>จาก ecosystem page → สู่ Hall ที่กดใช้งานได้จริง</h2>
+              <span className="chip">MeeChain Magic Hall</span>
+              <h2>Quest Hall, Monitoring Relics และ Magic Orb ในที่เดียว</h2>
               <p>
-                Network pulse วิ่งสด, Guardian อ่านสัญญาณเสี่ยง, Quest เช็คสำเร็จได้, MeeBot คุยตอบกลับได้จริง
-                และยังคงใช้ภาษาเวทมนตร์แบบ MeeChain ทั้งระบบ
+                พื้นหลังถูกลดความเข้มให้มองข้อมูลชัดขึ้น พร้อมขอบทอง การ์ด relic, quest board และสัญญาณ network ที่ใช้งานได้จริง
               </p>
               <div className="hero-actions">
-                <button className="primary-btn" onClick={() => setActiveHall('network')}>เปิดดู Network Pulse</button>
+                <button className="primary-btn" onClick={() => setActiveHall('network')}>เปิด Monitoring Relics</button>
                 <button className="ghost-btn" onClick={() => setActiveHall('meebot')}>ถาม MeeBot</button>
               </div>
             </div>
